@@ -35,9 +35,13 @@ Initializes the owner with the address of the deployer of the contract.
 
 Functions:
 setGuardian: Allows the current owner to set or remove a guardian for the wallet.
+
 proposeNewOwner: Allows guardians to propose a new owner for the wallet. After a certain number of confirmations from guardians, the new owner is set.
+
 setAllowance: Allows the owner to set the allowance for an address to spend from the wallet.
+
 transfer: Allows any address (owner or allowed address) to transfer funds from the wallet to another address.
+
 receive: Fallback function to receive Ether.
 
 This contract enables features like multi-signature ownership, setting allowances for spending, and transferring funds with proper authorization checks.
