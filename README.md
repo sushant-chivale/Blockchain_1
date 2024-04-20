@@ -13,7 +13,8 @@ deposit(): It allows anyone to send Ether to the contract.
 2.SmartContractWallet Contract:
       This contract constitutes a wallet-like smart contract with multi-signature capabilities. Let's explain each part:
 
-State Variables:
+State Variables:__
+
 owner: Stores the address of the current owner of the wallet.
 
 allowance: Maps addresses to the amount they are allowed to spend from the wallet.
@@ -31,6 +32,7 @@ guardiansResetCount: Tracks the number of guardians who have confirmed a new own
 confirmationsFromGuardiansForReset: Defines the required number of guardian confirmations for a new owner proposal.
 
 Constructor:__
+
 Initializes the owner with the address of the deployer of the contract.
 
 Functions:
