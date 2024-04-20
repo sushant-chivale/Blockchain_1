@@ -1,4 +1,4 @@
-# Blockchain
+# Blockchain_1
 Wallet has one owner. Wallet is able to receive funds no matter what, and it is possible for the owner to spend funds on any kind of address.
 It is possible to allow certain people to spend up to a certain amount of fund. 
 Had set the new owner with 3 out of 5 guardians in case the funds are lost. This is for, if the owner loses his private key,there should be some kind of recovery functionality.
@@ -14,14 +14,14 @@ deposit(): It allows anyone to send Ether to the contract.
       This contract constitutes a wallet-like smart contract with multi-signature capabilities. Let's explain each part:
 
 State Variables:
-owner: Stores the address of the current owner of the wallet.
-allowance: Maps addresses to the amount they are allowed to spend from the wallet.
-isAllowedToSend: Maps addresses to boolean values indicating whether they are allowed to send funds from the wallet.
-guardians: Maps addresses to boolean values indicating whether they are guardians of the wallet.
-nextOwner: Stores the address proposed to be the next owner.
-nextOwneGuardianVotedBool: Maps addresses to another mapping of addresses to boolean values, indicating whether a guardian has voted for a proposed new owner.
-guardiansResetCount: Tracks the number of guardians who have confirmed a new owner proposal.
-confirmationsFromGuardiansForReset: Defines the required number of guardian confirmations for a new owner proposal.
+owner: Stores the address of the current owner of the wallet.//
+allowance: Maps addresses to the amount they are allowed to spend from the wallet.//
+isAllowedToSend: Maps addresses to boolean values indicating whether they are allowed to send funds from the wallet.//
+guardians: Maps addresses to boolean values indicating whether they are guardians of the wallet.//
+nextOwner: Stores the address proposed to be the next owner.//
+nextOwneGuardianVotedBool: Maps addresses to another mapping of addresses to boolean values, indicating whether a guardian has voted for a proposed new owner.//
+guardiansResetCount: Tracks the number of guardians who have confirmed a new owner proposal.//
+confirmationsFromGuardiansForReset: Defines the required number of guardian confirmations for a new owner proposal.//
 
 Constructor:
 Initializes the owner with the address of the deployer of the contract.
