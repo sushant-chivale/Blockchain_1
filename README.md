@@ -1,4 +1,4 @@
-# Blockchain_1
+# Smart_Contract_Wallet
 Wallet has one owner. Wallet is able to receive funds no matter what, and it is possible for the owner to spend funds on any kind of address.
 It is possible to allow certain people to spend up to a certain amount of fund. 
 Had set the new owner with 3 out of 5 guardians in case the funds are lost. This is for, if the owner loses his private key,there should be some kind of recovery functionality.
