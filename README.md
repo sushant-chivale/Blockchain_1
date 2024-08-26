@@ -1,49 +1,70 @@
-# Smart_Wallet_Contract
-Wallet has one owner. Wallet is able to receive funds no matter what, and it is possible for the owner to spend funds on any kind of address.
-It is possible to allow certain people to spend up to a certain amount of fund. 
-Had set the new owner with 3 out of 5 guardians in case the funds are lost. This is for, if the owner loses his private key,there should be some kind of recovery functionality.
-The Solidity code comprises two contracts: consumer and SmartContractWallet. 
-Let's break down each part:
-	
-1.Consumer Contract:	  
-  This contract has two functions:
-getbalance(): It returns the balance of the contract.
-deposit(): It allows anyone to send Ether to the contract.
+# SmartContractWallet and Consumer Contracts
 
-2.SmartContractWallet Contract:
-      This contract constitutes a wallet-like smart contract with multi-signature capabilities. Let's explain each part:
+This repository includes two Solidity smart contracts: `SmartContractWallet` and `consumer`. The `SmartContractWallet` contract offers a secure way to manage funds with guardianship features and allowances, while the `consumer` contract is a simple contract to demonstrate balance checks and deposits.
 
-State Variables:__
+## Contracts
 
-owner: Stores the address of the current owner of the wallet.
+### SmartContractWallet
 
-allowance: Maps addresses to the amount they are allowed to spend from the wallet.
+The `SmartContractWallet` contract provides functionalities for secure fund management:
+- **Ownership Management**: The contract starts with the deployer as the owner. Ownership can be transferred with confirmation from multiple guardians.
+- **Allowance System**: The owner can set allowances for other addresses, which are then restricted by an allowance limit.
+- **Guardian System**: Guardians can propose a new owner, and once a sufficient number of guardians agree, the ownership can be transferred.
+- **Fund Transfer**: Allows sending funds to other addresses with a specified payload, and enforces allowance constraints.
 
-isAllowedToSend: Maps addresses to boolean values indicating whether they are allowed to send funds from the wallet.
+**Key Functions:**
+- `setGuardian(address _guardian, bool _isGuardian)`: Set or remove a guardian.
+- `proposeNewOwner(address payable _newOwner)`: Propose a new owner for the wallet.
+- `setAllowance(address _for, uint _amount)`: Set or remove allowances for an address.
+- `transfer(address payable _to, uint _amount, bytes memory _payload)`: Transfer funds to another address with a payload.
+- `receive() external payable`: Receive Ether.
 
-guardians: Maps addresses to boolean values indicating whether they are guardians of the wallet.
+### consumer
+The `consumer` contract provides basic functionality to deposit funds and check the balance.
 
-nextOwner: Stores the address proposed to be the next owner.
+**Key Functions:**
+- `getbalance()`: Retrieve the balance of the contract.
+- `deposit()`: Deposit Ether into the contract.
 
-nextOwneGuardianVotedBool: Maps addresses to another mapping of addresses to boolean values, indicating whether a guardian has voted for a proposed new owner.
+## Deployment Instructions
+1. **Install Dependencies**
+   Make sure you have Node.js and npm installed. If using Truffle or Hardhat, install necessary dependencies:
+   ```bash
+   npm install @openzeppelin/contracts
+   
+2. Compile Contracts
+ Compile the smart contracts using a Solidity compiler such as solc, or through a development environment like Truffle or Hardhat.
 
-guardiansResetCount: Tracks the number of guardians who have confirmed a new owner proposal.
+3. Deploy Contracts
+ --Deploy SmartContractWallet: Deploy this contract first. It will initialize with the deployer 
+ as the owner.
+ --Deploy consumer: Deploy this contract as needed to interact with the wallet.
+   
+5. Interact with Contracts
+   
+ -- Manage Guardians and Ownership
+   
+// - javascript code
+// Set a guardian
+await smartContractWallet.setGuardian('0xGuardianAddress', true);
+// Propose a new owner
+await smartContractWallet.proposeNewOwner('0xNewOwnerAddress');
 
-confirmationsFromGuardiansForReset: Defines the required number of guardian confirmations for a new owner proposal.
+ -- Set Allowances
 
-Constructor:__
+// - javascript code
+await smartContractWallet.setAllowance('0xAddressWithAllowance', 1000);
 
-Initializes the owner with the address of the deployer of the contract.
+ -- Transfer Funds
+ 
+ // - javascript code
+await smartContractWallet.transfer('0xRecipientAddress', 500, "0xPayload");
 
-Functions:
-setGuardian: Allows the current owner to set or remove a guardian for the wallet.
+ -- Deposit and Check Balance
 
-proposeNewOwner: Allows guardians to propose a new owner for the wallet. After a certain number of confirmations from guardians, the new owner is set.
+ // - javascript code
+// Deposit Ether into consumer contract
+await consumer.deposit({ value: web3.utils.toWei('1', 'ether') });
 
-setAllowance: Allows the owner to set the allowance for an address to spend from the wallet.
-
-transfer: Allows any address (owner or allowed address) to transfer funds from the wallet to another address.
-
-receive: Fallback function to receive Ether.
-
-This contract enables features like multi-signature ownership, setting allowances for spending, and transferring funds with proper authorization checks.
+// Check balance
+let balance = await consumer.getbalance();
